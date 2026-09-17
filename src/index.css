@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #23425a;
+  --muted: #6789a0;
+  --gold: #5b9bc4;
+  --accent: #2f6690;
+  --paper: #ffffff;
+  --cream: #eaf4fb;
+  --line: rgba(91, 155, 196, 0.4);
+  --line-soft: rgba(91, 155, 196, 0.2);
+  --shadow: 0 26px 80px rgba(40, 80, 110, 0.16);
+  --page-1: #eaf4fb;
+  --page-2: #dcecf7;
+  --gate-bg: #ffffff;
+  --gate-bg-2: #eaf4fb;
+  --gate-line: rgba(91, 155, 196, 0.5);
+  --gate-ink: #23425a;
+}
+
+[data-theme="dark"] {
+  --ink: #e4eff7;
+  --muted: #a9c4d8;
+  --gold: #7fb8de;
+  --accent: #9ecbe8;
+  --paper: #0f1e2b;
+  --cream: #16283a;
+  --line: rgba(127, 184, 222, 0.32);
+  --line-soft: rgba(127, 184, 222, 0.16);
+  --shadow: 0 26px 90px rgba(0, 0, 0, 0.6);
+  --page-1: #0a161f;
+  --page-2: #101f2c;
+  --gate-bg: #0f1e2b;
+  --gate-bg-2: #16283a;
+  --gate-line: rgba(127, 184, 222, 0.45);
+  --gate-ink: #e4eff7;
+}
+
+body {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+@media print {
+  header,
+  aside,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  #invitation-card {
+    box-shadow: none !important;
+    border: 1px solid #999 !important;
+    page-break-inside: avoid;
+  }
+}

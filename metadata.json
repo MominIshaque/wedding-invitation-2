@@ -1,0 +1,6 @@
+{
+  "name": "Wedding Invitation Editor",
+  "description": "Interactive wedding invitation editor and live preview with customizable names, ceremonies, Islamic ornaments, and export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
