@@ -44,9 +44,9 @@ export interface WeddingData {
   hero: {
     bismillahArabic: string;
     bismillahEnglish: string;
-    guardianLabel: string;
-    guardianName: string;
-    guardianDegree: string;
+    guardianLabel?: string;
+    guardianName?: string;
+    guardianDegree?: string;
     invitersText: string;
     groomName: string;
     groomDegree: string;

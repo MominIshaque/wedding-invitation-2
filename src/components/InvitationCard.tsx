@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { WeddingData, WeddingEvent } from '../types';
 import { CornerOrnament, CardDivider } from './Ornaments';
 import { InlineEdit } from './InlineEdit';
-import { MapPin, Plus, Trash2, Calendar, Clock, Share2, Sparkles } from 'lucide-react';
+import { MapPin, Plus, Trash2, Calendar, Clock, Share2, Sparkles, DoorOpen, Edit3 } from 'lucide-react';
 
 interface InvitationCardProps {
   data: WeddingData;
@@ -14,6 +14,8 @@ interface InvitationCardProps {
   onUpdateEvent: (id: string, field: keyof WeddingEvent, val: string) => void;
   onAddEvent: () => void;
   onDeleteEvent: (id: string) => void;
+  onReplayGate?: () => void;
+  onToggleEdit?: () => void;
 }
 
 export const InvitationCard: React.FC<InvitationCardProps> = ({
@@ -26,6 +28,8 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
   onUpdateEvent,
   onAddEvent,
   onDeleteEvent,
+  onReplayGate,
+  onToggleEdit,
 }) => {
   // Countdown state
   const [timeLeft, setTimeLeft] = useState<{
@@ -106,32 +110,6 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
         </div>
 
         <CardDivider />
-
-        {/* Under Guardianship */}
-        <p className="text-base sm:text-lg tracking-wider italic text-[var(--muted)] my-1">
-          <InlineEdit
-            value={data.hero.guardianLabel}
-            onChange={(v) => onUpdateHero('guardianLabel', v)}
-            isEditable={isEditable}
-            labelTooltip="Guardian Prefix Label"
-          />
-        </p>
-        <p className="text-xl sm:text-3xl font-semibold mb-6 text-[var(--ink)]">
-          <InlineEdit
-            value={data.hero.guardianName}
-            onChange={(v) => onUpdateHero('guardianName', v)}
-            isEditable={isEditable}
-            labelTooltip="Guardian Name"
-          />{' '}
-          <span className="text-base sm:text-lg font-normal tracking-wide text-[var(--muted)]">
-            <InlineEdit
-              value={data.hero.guardianDegree}
-              onChange={(v) => onUpdateHero('guardianDegree', v)}
-              isEditable={isEditable}
-              labelTooltip="Guardian Degree"
-            />
-          </span>
-        </p>
 
         {/* Request Invitation Lines */}
         <div className="max-w-[640px] mx-auto mb-8 text-base sm:text-xl leading-relaxed italic text-[var(--muted)] whitespace-pre-line">
@@ -519,8 +497,8 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
           )}
         </div>
 
-        {/* Share Invitation button */}
-        <div className="mt-6">
+        {/* Action buttons: WhatsApp & Replay Gate */}
+        <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
           <a
             href={getWhatsAppShareUrl()}
             target="_blank"
@@ -528,16 +506,42 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
             className="inline-flex items-center gap-2.5 px-6 py-3 border border-[var(--gold)] text-[var(--ink)] hover:bg-[var(--gold)] hover:text-white transition-all text-sm tracking-wider uppercase font-serif shadow-sm hover:shadow"
           >
             <Share2 className="w-4 h-4 text-[var(--gold)] group-hover:text-white" />
-            Share Invitation via WhatsApp
+            Share Invitation
           </a>
+
+          {onReplayGate && (
+            <button
+              onClick={onReplayGate}
+              className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--line)] text-[var(--ink)] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-all text-sm tracking-wider uppercase font-serif shadow-sm cursor-pointer"
+            >
+              <DoorOpen className="w-4 h-4 text-[var(--gold)]" />
+              Replay Gate Entrance
+            </button>
+          )}
         </div>
 
-        <a
-          href="#top"
-          className="inline-block mt-7 text-xs text-[var(--muted)] hover:text-[var(--ink)] transition-colors uppercase tracking-widest font-sans"
-        >
-          ↑ Back to top
-        </a>
+        <div className="mt-8 flex items-center justify-center gap-6 text-xs text-[var(--muted)] uppercase tracking-widest font-sans">
+          <a
+            href="#top"
+            className="hover:text-[var(--ink)] transition-colors"
+          >
+            ↑ Back to top
+          </a>
+
+          {!isEditable && onToggleEdit && (
+            <>
+              <span className="opacity-30">•</span>
+              <button
+                onClick={onToggleEdit}
+                className="hover:text-[var(--ink)] opacity-60 hover:opacity-100 transition-all flex items-center gap-1 cursor-pointer"
+                title="Edit and customize this invitation card"
+              >
+                <Edit3 className="w-3 h-3" />
+                <span>Edit Invitation</span>
+              </button>
+            </>
+          )}
+        </div>
       </footer>
     </article>
   );

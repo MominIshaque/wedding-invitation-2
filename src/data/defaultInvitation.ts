@@ -87,9 +87,6 @@ export const DEFAULT_INVITATION_DATA: WeddingData = {
   hero: {
     bismillahArabic: 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
     bismillahEnglish: 'In the name of Allah — The most beneficent & merciful',
-    guardianLabel: 'Under the Guardianship of',
-    guardianName: 'Alhaj Mohammed Ibrahim Sahab',
-    guardianDegree: '(Dy. Engg.)',
     invitersText: 'Mrs. & Mr. Alhaj Gulam Jeelani\nRequest your gracious presence on the auspicious occasion of\nWedding Ceremony of their Son',
     groomName: 'Momin Mohammed Ishaque Mohiuddin',
     groomDegree: '(B.Tech.)',

@@ -125,17 +125,58 @@ export function generateStandaloneHtml(data: WeddingData): string {
     position: relative;
     flex: 1;
     height: 100%;
-    background:
-      repeating-linear-gradient(45deg, transparent 0 18px, var(--gate-line) 18px 19px, transparent 19px 36px),
-      repeating-linear-gradient(-45deg, transparent 0 18px, var(--gate-line) 18px 19px, transparent 19px 36px),
-      linear-gradient(160deg, var(--gate-bg), var(--gate-bg-2));
-    background-size: auto, auto, cover;
+    background: linear-gradient(180deg, var(--gate-bg) 0%, var(--gate-bg-2) 100%);
     opacity: 1;
     transition: transform 1.05s cubic-bezier(.65,0,.35,1);
     will-change: transform;
+    overflow: hidden;
   }
-  .gate-left { border-right: 1px solid var(--gate-line); }
-  .gate-right { border-left: 1px solid var(--gate-line); }
+  .gate-panel::before {
+    content: "";
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    opacity: .45;
+    pointer-events: none;
+  }
+  .gate-panel::after {
+    content: "";
+    position: absolute;
+    top: 32px;
+    bottom: 32px;
+    opacity: .25;
+    pointer-events: none;
+  }
+  .gate-left::before {
+    left: 24px;
+    right: 0;
+    border-top: 1px solid var(--gate-line);
+    border-bottom: 1px solid var(--gate-line);
+    border-left: 1px solid var(--gate-line);
+  }
+  .gate-left::after {
+    left: 32px;
+    right: 0;
+    border-top: 1px solid var(--gate-line);
+    border-bottom: 1px solid var(--gate-line);
+    border-left: 1px solid var(--gate-line);
+  }
+  .gate-right::before {
+    right: 24px;
+    left: 0;
+    border-top: 1px solid var(--gate-line);
+    border-bottom: 1px solid var(--gate-line);
+    border-right: 1px solid var(--gate-line);
+  }
+  .gate-right::after {
+    right: 32px;
+    left: 0;
+    border-top: 1px solid var(--gate-line);
+    border-bottom: 1px solid var(--gate-line);
+    border-right: 1px solid var(--gate-line);
+  }
+  .gate-left { border-right: none; }
+  .gate-right { border-left: none; }
   .gate.opening .gate-left { transform: translateX(-102%); }
   .gate.opening .gate-right { transform: translateX(102%); }
 
@@ -154,77 +195,73 @@ export function generateStandaloneHtml(data: WeddingData): string {
   }
   .gate.opening .gate-center { opacity: 0; pointer-events: none; }
 
-  .gate-star {
-    width: 78px;
-    height: 78px;
-    margin-bottom: 18px;
-    animation: gateGlow 3.2s ease-in-out infinite;
-  }
-  @keyframes gateGlow {
-    0%, 100% { opacity: .75; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.06); }
-  }
-
   .gate-eyebrow {
-    font-size: 15px;
-    letter-spacing: .05em;
+    font-size: clamp(24px, 4.5vw, 50px);
+    letter-spacing: .06em;
     color: var(--gold);
-    margin: 0 0 10px;
+    margin: 0 0 12px;
     direction: rtl;
+    font-family: Georgia, serif;
   }
 
   .gate-bismillah {
-    margin: 0 0 22px;
-    font-size: 13px;
-    letter-spacing: .1em;
+    margin: 0 0 28px;
+    font-size: clamp(14px, 1.8vw, 19px);
+    letter-spacing: .18em;
     font-style: italic;
     color: var(--gate-ink);
-    opacity: .75;
+    opacity: .85;
+    text-transform: uppercase;
   }
 
   .gate-names {
     font-family: "Great Vibes", cursive;
     font-weight: 400;
-    font-size: clamp(40px, 8vw, 66px);
+    font-size: clamp(54px, 10vw, 108px);
     margin: 0;
-    line-height: 1.1;
+    line-height: 1.05;
+    color: var(--accent);
   }
-  .gate-names span { color: var(--gold); font-family: "Cormorant Garamond", serif; font-size: .6em; padding: 0 6px; }
+  .gate-names span { color: var(--gold); font-family: "Cormorant Garamond", serif; font-size: .55em; padding: 0 10px; }
 
   .gate-tagline {
-    margin: 6px 0 30px;
+    margin: 12px 0 36px;
     font-style: italic;
     letter-spacing: .06em;
     color: var(--gate-ink);
-    opacity: .8;
-    font-size: 17px;
+    opacity: .9;
+    font-size: clamp(19px, 2.8vw, 30px);
   }
 
   .gate-btn {
     background: transparent;
-    border: 1px solid var(--gold);
+    border: 2px solid var(--gold);
     color: var(--gate-ink);
-    padding: 13px 30px;
+    padding: 16px 44px;
     font-family: "Cormorant Garamond", serif;
-    font-size: 16px;
-    letter-spacing: .1em;
+    font-size: clamp(18px, 2.2vw, 24px);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-weight: 600;
     cursor: pointer;
-    transition: background .25s ease, color .25s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    transition: background .25s ease, color .25s ease, transform .15s ease, box-shadow .25s ease;
   }
-  .gate-btn:hover { background: var(--gold); color: #ffffff; }
+  .gate-btn:hover { background: var(--gold); color: #ffffff; transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.22); }
+  .gate-btn:active { transform: translateY(1px); }
 
   .gate-corner {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: clamp(52px, 7vw, 84px);
+    height: clamp(52px, 7vw, 84px);
     color: var(--gold);
-    opacity: .45;
+    opacity: .7;
     z-index: 1;
   }
-  .gate-corner-tl { top: 26px; left: 26px; }
-  .gate-corner-tr { top: 26px; right: 26px; transform: scaleX(-1); }
-  .gate-corner-bl { bottom: 26px; left: 26px; transform: scaleY(-1); }
-  .gate-corner-br { bottom: 26px; right: 26px; transform: scale(-1,-1); }
+  .gate-corner-tl { top: 24px; left: 24px; }
+  .gate-corner-tr { top: 24px; right: 24px; transform: scaleX(-1); }
+  .gate-corner-bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
+  .gate-corner-br { bottom: 24px; right: 24px; transform: scale(-1,-1); }
   .gate.opening .gate-corner { opacity: 0; transition: opacity .4s ease; }
 
   /* Main content reveal */
@@ -257,7 +294,7 @@ export function generateStandaloneHtml(data: WeddingData): string {
   }
   .invitation::after { inset: 21px; border-color: var(--line-soft); }
 
-  .corner { position: absolute; width: 78px; height: 78px; color: var(--gold); opacity: .5; z-index: 1; }
+  .corner { position: absolute; width: 48px; height: 48px; color: var(--gold); opacity: .55; z-index: 1; }
   .corner-tl { top: 30px; left: 30px; }
   .corner-tr { top: 30px; right: 30px; transform: scaleX(-1); }
   .corner-bl { bottom: 30px; left: 30px; transform: scaleY(-1); }
@@ -279,9 +316,6 @@ export function generateStandaloneHtml(data: WeddingData): string {
   .divider { margin: 22px auto; width: 150px; display: flex; align-items: center; gap: 10px; color: var(--gold); }
   .divider-line { height: 1px; flex: 1; background: var(--line); }
   .diamond { width: 9px; height: 9px; border: 1px solid var(--gold); transform: rotate(45deg); flex-shrink: 0; }
-
-  .small-title { font-size: 18px; letter-spacing: .04em; font-style: italic; color: var(--muted); margin: 4px 0; }
-  .guardian { font-size: clamp(21px, 3vw, 30px); font-weight: 600; margin: 0 0 25px; }
 
   .request { max-width: 640px; margin: 0 auto 30px; font-size: 19px; line-height: 1.45; font-style: italic; color: var(--muted); white-space: pre-line; }
 
@@ -445,12 +479,16 @@ export function generateStandaloneHtml(data: WeddingData): string {
 
   <!-- Shared ornament symbols -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Simple, Clean & Aesthetic Corner Accent -->
     <symbol id="ornVine" viewBox="0 0 100 100">
-      <path d="M6 94 C 6 58, 27 54, 21 28 C 15 8, 42 4, 62 14 C 78 22, 72 42, 55 46 C 44 49, 41 38, 50 31"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="62" cy="14" r="3.4" fill="currentColor"/>
-      <circle cx="21" cy="28" r="2.8" fill="currentColor"/>
-      <circle cx="47" cy="47" r="2.2" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Outer primary corner bracket -->
+        <path d="M 64 10 L 10 10 L 10 64" stroke-width="1.3" />
+        <!-- Inner delicate pinstripe -->
+        <path d="M 46 18 L 18 18 L 18 46" stroke-width="0.8" opacity="0.65" />
+      </g>
+      <!-- Subtle diamond point -->
+      <polygon points="18,15 21,18 18,21 15,18" fill="currentColor" />
     </symbol>
     <symbol id="ornStar" viewBox="0 0 120 120">
       <g fill="none" stroke="currentColor" stroke-width="2.2">
@@ -472,7 +510,6 @@ export function generateStandaloneHtml(data: WeddingData): string {
       <svg class="gate-corner gate-corner-br" viewBox="0 0 100 100" aria-hidden="true"><use href="#ornVine"/></svg>
     </div>
     <div class="gate-center">
-      <svg class="gate-star" viewBox="0 0 120 120" aria-hidden="true"><use href="#ornStar"/></svg>
       <p class="gate-eyebrow">${escapeHtml(data.gate.bismillahArabic)}</p>
       <p class="gate-bismillah">${escapeHtml(data.gate.bismillahEnglish)}</p>
       <h1 class="gate-names">${escapeHtml(
@@ -497,13 +534,6 @@ export function generateStandaloneHtml(data: WeddingData): string {
         <div class="bismillah">${escapeHtml(data.hero.bismillahEnglish)}</div>
 
         <div class="divider"><span class="divider-line"></span><span class="diamond"></span><span class="divider-line"></span></div>
-
-        <p class="small-title">${escapeHtml(data.hero.guardianLabel)}</p>
-        <p class="guardian">${escapeHtml(
-          data.hero.guardianName
-        )} <span class="degree">${escapeHtml(
-    data.hero.guardianDegree
-  )}</span></p>
 
         <p class="request">${escapeHtml(data.hero.invitersText)}</p>
 

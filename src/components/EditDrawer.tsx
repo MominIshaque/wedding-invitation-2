@@ -111,7 +111,7 @@ export const EditDrawer: React.FC<EditDrawerProps> = ({
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
-            Guardians &amp; Verses
+            Invocations &amp; Texts
           </button>
           <button
             onClick={() => setActiveTab('theme')}
@@ -760,66 +760,6 @@ export const EditDrawer: React.FC<EditDrawerProps> = ({
                     className="w-full px-3 py-1.5 text-sm border border-slate-300 rounded"
                     placeholder="Insha'Allah"
                   />
-                </div>
-              </div>
-
-              {/* Guardianship */}
-              <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-3">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                  Guardianship
-                </h3>
-                <div>
-                  <label className="block text-xs font-medium text-slate-600 mb-1">
-                    Guardian Label
-                  </label>
-                  <input
-                    type="text"
-                    value={data.hero.guardianLabel}
-                    onChange={(e) =>
-                      onUpdateData((prev) => ({
-                        ...prev,
-                        hero: { ...prev.hero, guardianLabel: e.target.value },
-                      }))
-                    }
-                    className="w-full px-3 py-1.5 text-sm border border-slate-300 rounded"
-                  />
-                </div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="col-span-2">
-                    <label className="block text-xs font-medium text-slate-600 mb-1">
-                      Guardian Name
-                    </label>
-                    <input
-                      type="text"
-                      value={data.hero.guardianName}
-                      onChange={(e) =>
-                        onUpdateData((prev) => ({
-                          ...prev,
-                          hero: { ...prev.hero, guardianName: e.target.value },
-                        }))
-                      }
-                      className="w-full px-3 py-1.5 text-sm border border-slate-300 rounded"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">
-                      Degree
-                    </label>
-                    <input
-                      type="text"
-                      value={data.hero.guardianDegree}
-                      onChange={(e) =>
-                        onUpdateData((prev) => ({
-                          ...prev,
-                          hero: {
-                            ...prev.hero,
-                            guardianDegree: e.target.value,
-                          },
-                        }))
-                      }
-                      className="w-full px-3 py-1.5 text-sm border border-slate-300 rounded"
-                    />
-                  </div>
                 </div>
               </div>
 

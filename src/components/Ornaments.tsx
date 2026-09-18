@@ -2,17 +2,16 @@ import React from 'react';
 
 export const OrnamentSymbols: React.FC = () => (
   <svg width="0" height="0" className="absolute pointer-events-none" aria-hidden="true">
+    {/* Simple, Clean & Aesthetic Corner Accent */}
     <symbol id="ornVine" viewBox="0 0 100 100">
-      <path
-        d="M6 94 C 6 58, 27 54, 21 28 C 15 8, 42 4, 62 14 C 78 22, 72 42, 55 46 C 44 49, 41 38, 50 31"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <circle cx="62" cy="14" r="3.4" fill="currentColor" />
-      <circle cx="21" cy="28" r="2.8" fill="currentColor" />
-      <circle cx="47" cy="47" r="2.2" fill="currentColor" />
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        {/* Outer primary corner bracket */}
+        <path d="M 64 10 L 10 10 L 10 64" strokeWidth="1.3" />
+        {/* Inner delicate pinstripe */}
+        <path d="M 46 18 L 18 18 L 18 46" strokeWidth="0.8" opacity="0.65" />
+      </g>
+      {/* Subtle diamond point */}
+      <polygon points="18,15 21,18 18,21 15,18" fill="currentColor" />
     </symbol>
     <symbol id="ornStar" viewBox="0 0 120 120">
       <g fill="none" stroke="currentColor" strokeWidth="2.2">
@@ -56,7 +55,7 @@ export const CornerOrnament: React.FC<{
 
   return (
     <svg
-      className={`absolute w-14 h-14 sm:w-20 sm:h-20 pointer-events-none z-10 opacity-50 ${getPositionClasses()} ${className}`}
+      className={`absolute w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 pointer-events-none z-10 opacity-60 ${getPositionClasses()} ${className}`}
       style={{
         transform: getTransform(),
         color: 'var(--gold)',

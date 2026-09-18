@@ -1,6 +1,8 @@
 {
-  "name": "Wedding Invitation Editor",
-  "description": "Interactive wedding invitation editor and live preview with customizable names, ceremonies, Islamic ornaments, and export.",
+  "name": "Wedding Invitation — Ishaque & Kashish",
+  "description": "Royal wedding invitation for Momin Mohammed Ishaque Mohiuddin & Shaikh Adiba Kashish with ceremony schedule, interactive location maps, and live countdown.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

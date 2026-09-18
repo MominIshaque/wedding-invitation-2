@@ -9,15 +9,30 @@ import { EditDrawer } from './components/EditDrawer';
 import { FinaliseModal } from './components/FinaliseModal';
 import { Edit3, CheckCircle2, Sliders, Sparkles, MessageCircle } from 'lucide-react';
 
-const STORAGE_KEY = 'wedding_invitation_data_v1';
+const STORAGE_KEY = 'wedding_invitation_data_v2';
 
 export default function App() {
   // Load initial data with localStorage fallback
   const [data, setData] = useState<WeddingData>(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved =
+        localStorage.getItem(STORAGE_KEY) ||
+        localStorage.getItem('wedding_invitation_data_v1');
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (parsed?.hero) {
+          delete parsed.hero.guardianLabel;
+          delete parsed.hero.guardianName;
+          delete parsed.hero.guardianDegree;
+        }
+        return {
+          ...DEFAULT_INVITATION_DATA,
+          ...parsed,
+          hero: {
+            ...DEFAULT_INVITATION_DATA.hero,
+            ...(parsed.hero || {}),
+          },
+        };
       }
     } catch {
       // ignore
@@ -25,12 +40,18 @@ export default function App() {
     return DEFAULT_INVITATION_DATA;
   });
 
-  // Editor states
-  const [isEditable, setIsEditable] = useState<boolean>(true);
+  // Mode states - Final published application starts in clean Guest view
+  const [isEditable, setIsEditable] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('edit') === 'true' || params.get('mode') === 'edit';
+    }
+    return false;
+  });
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [isFinaliseModalOpen, setIsFinaliseModalOpen] = useState<boolean>(false);
-  // Default gate open so user directly interacts with the editable card in preview
-  const [isGateOpen, setIsGateOpen] = useState<boolean>(true);
+  // Gate starts closed on initial load so visitors experience the royal entrance gate
+  const [isGateOpen, setIsGateOpen] = useState<boolean>(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
 
   // Sync to localStorage
@@ -194,17 +215,19 @@ export default function App() {
       {/* SVG Definitions for Ornaments */}
       <OrnamentSymbols />
 
-      {/* Top Floating Control Bar */}
-      <EditorToolbar
-        isEditable={isEditable}
-        onToggleEditable={() => setIsEditable(!isEditable)}
-        onOpenDrawer={() => setIsDrawerOpen(true)}
-        onReplayGate={() => setIsGateOpen(false)}
-        onOpenFinalise={() => setIsFinaliseModalOpen(true)}
-        currentThemeId={data.themeId}
-        onSelectTheme={(themeId) => setData((prev) => ({ ...prev, themeId }))}
-        onReset={handleReset}
-      />
+      {/* Top Floating Control Bar - Only visible in Edit Mode */}
+      {isEditable && (
+        <EditorToolbar
+          isEditable={isEditable}
+          onToggleEditable={() => setIsEditable(!isEditable)}
+          onOpenDrawer={() => setIsDrawerOpen(true)}
+          onReplayGate={() => setIsGateOpen(false)}
+          onOpenFinalise={() => setIsFinaliseModalOpen(true)}
+          currentThemeId={data.themeId}
+          onSelectTheme={(themeId) => setData((prev) => ({ ...prev, themeId }))}
+          onReset={handleReset}
+        />
+      )}
 
       {/* Edit Mode Notice Banner */}
       {isEditable && (
@@ -259,6 +282,8 @@ export default function App() {
           onUpdateEvent={handleUpdateEvent}
           onAddEvent={handleAddEvent}
           onDeleteEvent={handleDeleteEvent}
+          onReplayGate={() => setIsGateOpen(false)}
+          onToggleEdit={() => setIsEditable(true)}
         />
       </main>
 
