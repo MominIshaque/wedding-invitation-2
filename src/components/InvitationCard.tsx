@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { WeddingData, WeddingEvent } from '../types';
 import { CornerOrnament, CardDivider } from './Ornaments';
 import { InlineEdit } from './InlineEdit';
-import { MapPin, Plus, Trash2, Calendar, Clock, Share2, Sparkles, DoorOpen, Edit3 } from 'lucide-react';
+import { MapPin, Plus, Trash2, Calendar, Clock, Share2, Sparkles, DoorOpen } from 'lucide-react';
 
 interface InvitationCardProps {
   data: WeddingData;
@@ -15,7 +15,6 @@ interface InvitationCardProps {
   onAddEvent: () => void;
   onDeleteEvent: (id: string) => void;
   onReplayGate?: () => void;
-  onToggleEdit?: () => void;
 }
 
 export const InvitationCard: React.FC<InvitationCardProps> = ({
@@ -29,7 +28,6 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
   onAddEvent,
   onDeleteEvent,
   onReplayGate,
-  onToggleEdit,
 }) => {
   // Countdown state
   const [timeLeft, setTimeLeft] = useState<{
@@ -520,27 +518,13 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
           )}
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-6 text-xs text-[var(--muted)] uppercase tracking-widest font-sans">
+        <div className="mt-8 flex items-center justify-center text-xs text-[var(--muted)] uppercase tracking-widest font-sans">
           <a
             href="#top"
             className="hover:text-[var(--ink)] transition-colors"
           >
             ↑ Back to top
           </a>
-
-          {!isEditable && onToggleEdit && (
-            <>
-              <span className="opacity-30">•</span>
-              <button
-                onClick={onToggleEdit}
-                className="hover:text-[var(--ink)] opacity-60 hover:opacity-100 transition-all flex items-center gap-1 cursor-pointer"
-                title="Edit and customize this invitation card"
-              >
-                <Edit3 className="w-3 h-3" />
-                <span>Edit Invitation</span>
-              </button>
-            </>
-          )}
         </div>
       </footer>
     </article>

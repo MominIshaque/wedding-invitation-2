@@ -283,7 +283,6 @@ export default function App() {
           onAddEvent={handleAddEvent}
           onDeleteEvent={handleDeleteEvent}
           onReplayGate={() => setIsGateOpen(false)}
-          onToggleEdit={() => setIsEditable(true)}
         />
       </main>
 
