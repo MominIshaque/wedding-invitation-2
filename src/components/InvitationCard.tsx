@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { WeddingData, WeddingEvent } from '../types';
 import { CornerOrnament, CardDivider } from './Ornaments';
 import { InlineEdit } from './InlineEdit';
-import { MapPin, Plus, Trash2, Calendar, Clock, Share2, Sparkles, DoorOpen } from 'lucide-react';
+import { MapPin, Plus, Trash2, Calendar, Clock, Sparkles, DoorOpen, Download } from 'lucide-react';
+import { downloadStandaloneHtml } from '../utils/exportHtml';
 
 interface InvitationCardProps {
   data: WeddingData;
@@ -62,13 +63,6 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
     const timer = setInterval(calculateTime, 1000);
     return () => clearInterval(timer);
   }, [data.footer.countdownTargetIso]);
-
-  // WhatsApp share url generator
-  const getWhatsAppShareUrl = () => {
-    const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
-    const text = `${data.footer.shareMessageTemplate}\n${pageUrl}`;
-    return `https://wa.me/?text=${encodeURIComponent(text)}`;
-  };
 
   return (
     <article
@@ -495,18 +489,8 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
           )}
         </div>
 
-        {/* Action buttons: WhatsApp & Replay Gate */}
+        {/* Action buttons: Replay Gate & Download */}
         <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
-          <a
-            href={getWhatsAppShareUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-6 py-3 border border-[var(--gold)] text-[var(--ink)] hover:bg-[var(--gold)] hover:text-white transition-all text-sm tracking-wider uppercase font-serif shadow-sm hover:shadow"
-          >
-            <Share2 className="w-4 h-4 text-[var(--gold)] group-hover:text-white" />
-            Share Invitation
-          </a>
-
           {onReplayGate && (
             <button
               onClick={onReplayGate}
@@ -516,6 +500,15 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
               Replay Gate Entrance
             </button>
           )}
+
+          <button
+            onClick={() => downloadStandaloneHtml(data, 'Ishaque-and-Kashish-Wedding-Invitation.html')}
+            className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--line)] text-[var(--ink)] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-all text-sm tracking-wider uppercase font-serif shadow-sm cursor-pointer"
+            title="Download single, self-contained HTML file"
+          >
+            <Download className="w-4 h-4 text-[var(--gold)]" />
+            Download HTML
+          </button>
         </div>
 
         <div className="mt-8 flex items-center justify-center text-xs text-[var(--muted)] uppercase tracking-widest font-sans">

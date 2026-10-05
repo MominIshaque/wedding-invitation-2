@@ -1,53 +1,10 @@
-import { WeddingData } from '../types';
-
-export function generateStandaloneHtml(data: WeddingData): string {
-  const eventsHtml = data.events
-    .map((evt, idx) => {
-      return `
-          <article class="timeline-item">
-            <span class="timeline-node" aria-hidden="true"></span>
-            <div class="event">
-              <h3>${escapeHtml(evt.name)} ${
-                evt.subtitle
-                  ? `<small>${escapeHtml(evt.subtitle)}</small>`
-                  : ''
-              }</h3>
-              <div class="day">${escapeHtml(evt.dayOfWeek)}</div>
-              <div class="date">
-                <div class="date-number">${escapeHtml(evt.dayNumber)}</div>
-                <div class="date-month"><strong>${escapeHtml(
-                  evt.month
-                )}</strong>${escapeHtml(evt.year)}</div>
-              </div>
-              <div class="hijri">${escapeHtml(evt.hijriDate)}</div>
-              <p class="venue">
-                ${escapeHtml(evt.timeAndDetails)}<br>
-                <strong>${escapeHtml(evt.venueName)}</strong>
-                ${escapeHtml(evt.venueAddress)}
-              </p>
-              ${
-                evt.mapsUrl
-                  ? `<a class="map-btn" href="${escapeHtml(
-                      evt.mapsUrl
-                    )}" target="_blank" rel="noopener">View Location</a>`
-                  : ''
-              }
-            </div>
-          </article>`;
-    })
-    .join('\n');
-
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>${escapeHtml(data.hero.groomName)} &amp; ${escapeHtml(
-    data.hero.brideName
-  )} — Wedding Invitation</title>
-<meta name="description" content="Wedding invitation of ${escapeHtml(
-    data.hero.groomName
-  )} and ${escapeHtml(data.hero.brideName)}." />
+<title>Momin Mohammed Ishaque Mohiuddin &amp; Shaikh Adiba Kashish — Wedding Invitation</title>
+<meta name="description" content="Wedding invitation of Momin Mohammed Ishaque Mohiuddin and Shaikh Adiba Kashish." />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
@@ -513,15 +470,11 @@ export function generateStandaloneHtml(data: WeddingData): string {
       <svg class="gate-corner gate-corner-br" viewBox="0 0 100 100" aria-hidden="true"><use href="#ornVine"/></svg>
     </div>
     <div class="gate-center">
-      <p class="gate-eyebrow">${escapeHtml(data.gate.bismillahArabic)}</p>
-      <p class="gate-bismillah">${escapeHtml(data.gate.bismillahEnglish)}</p>
-      <h1 class="gate-names">${escapeHtml(
-        data.gate.shortGroomName
-      )} <span>&amp;</span> ${escapeHtml(data.gate.shortBrideName)}</h1>
-      <p class="gate-tagline">${escapeHtml(data.gate.tagline)}</p>
-      <button id="openGate" class="gate-btn" aria-label="Open the wedding invitation">${escapeHtml(
-        data.gate.buttonText || 'Open the Invitation'
-      )}</button>
+      <p class="gate-eyebrow">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+      <p class="gate-bismillah">In the name of Allah — The Most Beneficent &amp; Merciful</p>
+      <h1 class="gate-names">Ishaque <span>&amp;</span> Kashish</h1>
+      <p class="gate-tagline">are getting married, Insha&#039;Allah</p>
+      <button id="openGate" class="gate-btn" aria-label="Open the wedding invitation">Open the Invitation</button>
     </div>
   </div>
 
@@ -533,58 +486,87 @@ export function generateStandaloneHtml(data: WeddingData): string {
       <svg class="corner corner-br" viewBox="0 0 100 100" aria-hidden="true"><use href="#ornVine"/></svg>
 
       <section class="hero">
-        <div class="arabic">${escapeHtml(data.hero.bismillahArabic)}</div>
-        <div class="bismillah">${escapeHtml(data.hero.bismillahEnglish)}</div>
+        <div class="arabic">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+        <div class="bismillah">In the name of Allah — The most beneficent &amp; merciful</div>
 
         <div class="divider"><span class="divider-line"></span><span class="diamond"></span><span class="divider-line"></span></div>
 
-        <p class="request">${escapeHtml(data.hero.invitersText)}</p>
+        <p class="request">Mrs. &amp; Mr. Alhaj Gulam Jeelani
+Request your gracious presence on the auspicious occasion of
+Wedding Ceremony of their Son</p>
 
         <h1 class="couple-name">
-          ${escapeHtml(data.hero.groomName)} <span class="degree">${escapeHtml(
-    data.hero.groomDegree
-  )}</span>
+          Momin Mohammed Ishaque Mohiuddin <span class="degree">(B.Tech.)</span>
         </h1>
-        <p class="sonof">${escapeHtml(data.hero.groomParentage)} ${escapeHtml(
-    data.hero.groomGrandfather
-  )}</p>
+        <p class="sonof">S/o. Alhaj Gulam Jeelani S/o. Mohammed Osman Sahab (B.Tech.)</p>
 
         <div class="with">WITH</div>
 
         <h2 class="couple-name bride">
-          ${escapeHtml(data.hero.brideName)} <span class="degree">${escapeHtml(
-    data.hero.brideDegree
-  )}</span>
+          Shaikh Adiba Kashish <span class="degree">(B.Tech.)</span>
         </h2>
-        <p class="parents">${escapeHtml(data.hero.brideParentage)}</p>
+        <p class="parents">D/o. Shaikh Taher Sahab (Retd. M.S.E.B. Operator)</p>
 
         <div class="divider"><span class="divider-line"></span><span class="diamond"></span><span class="divider-line"></span></div>
-        <div class="bismillah">${escapeHtml(data.hero.closingWord)}</div>
+        <div class="bismillah">Insha&#039;Allah</div>
       </section>
 
       <section class="monogram-section">
         <div class="monogram-flowers"><span>❧</span><span>✿</span><span>❧</span></div>
-        <div class="monogram">${escapeHtml(
-          data.monogram.groomInitial
-        )} <span>&amp;</span> ${escapeHtml(data.monogram.brideInitial)}</div>
-        <p class="monogram-tagline">${escapeHtml(data.monogram.quote)}</p>
+        <div class="monogram">I <span>&amp;</span> K</div>
+        <p class="monogram-tagline">Two families, joined by faith and love — we would be honoured to have you celebrate this new beginning with us.</p>
       </section>
 
       <section class="events">
-        <h2 class="events-title">${escapeHtml(data.eventsTitle)}</h2>
+        <h2 class="events-title">Wedding Celebrations</h2>
         <div class="timeline">
-          ${eventsHtml}
+          
+          <article class="timeline-item">
+            <span class="timeline-node" aria-hidden="true"></span>
+            <div class="event">
+              <h3>Nikah </h3>
+              <div class="day">Sunday</div>
+              <div class="date">
+                <div class="date-number">18</div>
+                <div class="date-month"><strong>October</strong>2026</div>
+              </div>
+              <div class="hijri">6th Jamadiul Awwal 1448 H.</div>
+              <p class="venue">
+                after Namaz-e-Asar<br>
+                <strong>Jama Masjid</strong>
+                Buddi Lane, Aurangabad.
+              </p>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Jama+Masjid+Buddi+Lane+Aurangabad" target="_blank" rel="noopener">View Location</a>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <span class="timeline-node" aria-hidden="true"></span>
+            <div class="event">
+              <h3>Walima <small>(Dinner)</small></h3>
+              <div class="day">Monday</div>
+              <div class="date">
+                <div class="date-number">19</div>
+                <div class="date-month"><strong>October</strong>2026</div>
+              </div>
+              <div class="hijri">after Namaz-e-Maghrib (7:00 pm)</div>
+              <p class="venue">
+                7:00 PM onwards<br>
+                <strong>Sara Lawns</strong>
+                opp. K.K. Petrol Pump, Kat Kat Gate Road, Aurangabad.
+              </p>
+              <a class="map-btn" href="https://www.google.com/maps/search/?api=1&amp;query=SARA+LAWNS+Kat+Kat+Gate+Road+Aurangabad" target="_blank" rel="noopener">View Location</a>
+            </div>
+          </article>
         </div>
       </section>
 
       <footer class="footer">
-        <p class="compliments">${escapeHtml(data.footer.complimentsHeader)}</p>
-        <p class="friends">${escapeHtml(data.footer.complimentsFrom)}</p>
+        <p class="compliments">With Best Compliments from</p>
+        <p class="friends">All Relatives &amp; Friends</p>
 
         <div class="countdown">
-          <div class="countdown-label">${escapeHtml(
-            data.footer.countdownLabel
-          )}</div>
+          <div class="countdown-label">Counting down to Nikah</div>
           <div class="timer">
             <div><b id="days">--</b><span>Days</span></div>
             <div><b id="hours">--</b><span>Hours</span></div>
@@ -613,7 +595,7 @@ export function generateStandaloneHtml(data: WeddingData): string {
   </main>
 
   <script>
-    const weddingDate = new Date("${data.footer.countdownTargetIso}").getTime();
+    const weddingDate = new Date("2026-10-18T16:30:00+05:30").getTime();
 
     function updateCountdown() {
       const now = Date.now();
@@ -689,41 +671,4 @@ export function generateStandaloneHtml(data: WeddingData): string {
     if (replayBtn) replayBtn.addEventListener("click", replayInvitation);
   </script>
 </body>
-</html>`;
-}
-
-function escapeHtml(str: string): string {
-  if (!str) return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-function escapeJs(str: string): string {
-  if (!str) return '';
-  return str
-    .replace(/\\/g, '\\\\')
-    .replace(/"/g, '\\"')
-    .replace(/\n/g, '\\n')
-    .replace(/\r/g, '');
-}
-
-export function downloadStandaloneHtml(
-  data: WeddingData,
-  filename = 'wedding-invitation.html'
-): void {
-  const html = generateStandaloneHtml(data);
-  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
+</html>

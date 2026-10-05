@@ -7,7 +7,7 @@ import { InvitationCard } from './components/InvitationCard';
 import { EditorToolbar } from './components/EditorToolbar';
 import { EditDrawer } from './components/EditDrawer';
 import { FinaliseModal } from './components/FinaliseModal';
-import { Edit3, CheckCircle2, Sliders, Sparkles, MessageCircle } from 'lucide-react';
+import { Edit3, CheckCircle2, Sliders, Sparkles } from 'lucide-react';
 
 const STORAGE_KEY = 'wedding_invitation_data_v2';
 
@@ -190,11 +190,6 @@ export default function App() {
     }
   };
 
-  // WhatsApp Floating Share URL
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
-    `${data.footer.shareMessageTemplate}\n${typeof window !== 'undefined' ? window.location.href : ''}`
-  )}`;
-
   return (
     <div
       style={themeCssVariables}
@@ -285,20 +280,6 @@ export default function App() {
           onReplayGate={() => setIsGateOpen(false)}
         />
       </main>
-
-      {/* Floating WhatsApp Action Button */}
-      {isGateOpen && (
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed right-5 bottom-5 z-40 w-13 h-13 rounded-full bg-[var(--gold)] hover:bg-[var(--accent)] text-white flex items-center justify-center shadow-xl transition-transform hover:-translate-y-1 active:scale-95 no-print"
-          title="Share invitation via WhatsApp"
-          aria-label="Share invitation via WhatsApp"
-        >
-          <MessageCircle className="w-6 h-6" />
-        </a>
-      )}
 
       {/* Edit Drawer Panel */}
       <EditDrawer
