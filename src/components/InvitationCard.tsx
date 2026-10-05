@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { WeddingData, WeddingEvent } from '../types';
 import { CornerOrnament, CardDivider } from './Ornaments';
 import { InlineEdit } from './InlineEdit';
-import { MapPin, Plus, Trash2, Calendar, Clock, Sparkles, DoorOpen, Download } from 'lucide-react';
-import { downloadStandaloneHtml } from '../utils/exportHtml';
+import { MapPin, Plus, Trash2, Calendar, Clock, Sparkles, DoorOpen } from 'lucide-react';
 
 interface InvitationCardProps {
   data: WeddingData;
@@ -489,9 +488,9 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
           )}
         </div>
 
-        {/* Action buttons: Replay Gate & Download */}
-        <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
-          {onReplayGate && (
+        {/* Action buttons: Replay Gate */}
+        {onReplayGate && (
+          <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
             <button
               onClick={onReplayGate}
               className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--line)] text-[var(--ink)] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-all text-sm tracking-wider uppercase font-serif shadow-sm cursor-pointer"
@@ -499,17 +498,8 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
               <DoorOpen className="w-4 h-4 text-[var(--gold)]" />
               Replay Gate Entrance
             </button>
-          )}
-
-          <button
-            onClick={() => downloadStandaloneHtml(data, 'Ishaque-and-Kashish-Wedding-Invitation.html')}
-            className="inline-flex items-center gap-2 px-6 py-3 border border-[var(--line)] text-[var(--ink)] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-all text-sm tracking-wider uppercase font-serif shadow-sm cursor-pointer"
-            title="Download single, self-contained HTML file"
-          >
-            <Download className="w-4 h-4 text-[var(--gold)]" />
-            Download HTML
-          </button>
-        </div>
+          </div>
+        )}
 
         <div className="mt-8 flex items-center justify-center text-xs text-[var(--muted)] uppercase tracking-widest font-sans">
           <a
